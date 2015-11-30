@@ -23,6 +23,7 @@ SOFTWARE.
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<math.h>
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -65,22 +66,46 @@ char *strdup(const char *str){
     return dup;
 }
 
+int valueOf(char c){
+	if('0' <= c && c <= '9'){
+		return c - '0';
+	}
+	else if('A' <= c && c <= 'Z'){
+		return c - 'A' + 10;
+	}
+	else if('a' <= c && c <= 'z'){
+		return c - 'a' + 10;
+	}
+	// invalid value
+	return -1;
+}
 
 // convert a number from orig base to dest base
 char *baseConversion(char *number, int orig, int dest){
 	char *ret;
-	/// TO-DO LIST
+	// store number value in this variable
+	ll value = 0;
+	int tam = strlen(number) - 1;
+	int newtam;
 	
-	/* copy number string and convert it to lower or upper case
-	* (whichever suits better for the work)
-	* 
-	* then, work your exponentiation skills with numbers =)
-	*/
+	// retrieve value from string
+	for(int i = tam; i >= 0; i--){
+		value += binpow(orig, tam - i) * (ll) valueOf(number[i]);
+	}
+	
+	newtam = 2 + (int) log(value);
+	ret = malloc(newtam);
+	
+	// insert value into return string, converted
+	for(int i = newtam; i >= 0; i--){
+		/// TO-DO: find out how to do it
+	}
 	
 	return strdup(ret);
 }
 
-// Driver program to test above functions
+// Driver program to test above functions.
+// Working only with positive integers by now.
 int main(void){
 	//~ char number[50];
 	//~ char *converted;
