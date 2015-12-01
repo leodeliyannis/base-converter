@@ -62,7 +62,7 @@ ll binpow(ll a, ll n){
 // "warning: implicit declaration of function ‘strdup’" message
 char *strdup(const char *str){
     int n = strlen(str) + 1;
-    char *dup = malloc(n);
+    char *dup = (char*) malloc(n);
     if(dup){
         strcpy(dup, str);
     }
@@ -88,7 +88,7 @@ int toChar(int c){
 		return c + '0';
 	}
 	else if(10 <= c && c <= 35){
-		return c + 'A' - 10;
+		return c + 'a' - 10;
 	}
 	// invalid value
 	return -1;
@@ -106,14 +106,15 @@ char *baseConversion(char *number, int orig, int dest){
 		value += binpow(orig, tam - i) * (ll) valueOf(number[i]);
 	}
 	
-	newtam = (int) log1p(value);
-	ret = malloc(newtam+1);
+	newtam = 1+ (int) log(value)/log(dest);
+	ret = (char*) malloc(newtam+1);
 	
 	// insert value into return string, converted
 	for(int i = newtam; i >= 0; i--){
 		ret[i] = toChar(value % (ll)dest);
 		value /= (ll)dest;
 	}
+	ret[newtam+1] = '\0';
 	
 	return strdup(ret);
 }
@@ -121,17 +122,17 @@ char *baseConversion(char *number, int orig, int dest){
 // Driver program to test above functions.
 // Working only with positive integers by now.
 int main(void){
-	//~ char number[50];
-	//~ char *converted;
-	//~ int orig;
-	//~ int dest;
+	char number[50];
+	char *converted;
+	int orig;
+	int dest;
 	
-	//~ while(scanf("%s %d %d", number, &orig, &dest) != EOF){
-		//~ converted = baseConversion(number, orig, dest);
-		//~ printf("%s\n", converted);
-		//~ // is free() needed?
-		//~ free(converted);
-	//~ }
+	while(scanf("%s %d %d", number, &orig, &dest) != EOF){
+		converted = baseConversion(number, orig, dest);
+		printf("%s\n", converted);
+		// is free() needed?
+		free(converted);
+	}
 	
 	return 0;
 }
