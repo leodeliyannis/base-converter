@@ -1,4 +1,4 @@
-/* BaseConverter - a simple number base converter
+/* base-converter - a simple number base converter
 Copyright (c) 2015 Leonardo Deliyannis Constantin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
