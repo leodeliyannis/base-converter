@@ -106,15 +106,15 @@ char *baseConversion(char *number, int orig, int dest){
 		value += binpow(orig, tam - i) * (ll) valueOf(number[i]);
 	}
 	
-	newtam = 1+ (int) log(value)/log(dest);
+	newtam = (int) ceil(log1p(value)/log(dest));
 	ret = (char*) malloc(newtam+1);
 	
 	// insert value into return string, converted
-	for(int i = newtam; i >= 0; i--){
+	for(int i = newtam-1; i >= 0; i--){
 		ret[i] = toChar(value % (ll)dest);
 		value /= (ll)dest;
 	}
-	ret[newtam+1] = '\0';
+	ret[newtam] = '\0';
 	
 	return strdup(ret);
 }
