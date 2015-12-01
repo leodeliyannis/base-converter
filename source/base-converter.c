@@ -25,6 +25,9 @@ SOFTWARE.
 #include<stdlib.h>
 #include<math.h>
 
+// macro for debug prints
+//#define DEBP
+
 typedef long long ll;
 typedef unsigned long long ull;
 
@@ -80,10 +83,20 @@ int valueOf(char c){
 	return -1;
 }
 
+int toChar(int c){
+	if(0 <= c && c <= 9){
+		return c + '0';
+	}
+	else if(10 <= c && c <= 35){
+		return c + 'A' - 10;
+	}
+	// invalid value
+	return -1;
+} 
+
 // convert a number from orig base to dest base
 char *baseConversion(char *number, int orig, int dest){
 	char *ret;
-	// store number value in this variable
 	ll value = 0;
 	int tam = strlen(number) - 1;
 	int newtam;
@@ -93,12 +106,13 @@ char *baseConversion(char *number, int orig, int dest){
 		value += binpow(orig, tam - i) * (ll) valueOf(number[i]);
 	}
 	
-	newtam = 2 + (int) log(value);
-	ret = malloc(newtam);
+	newtam = (int) log1p(value);
+	ret = malloc(newtam+1);
 	
 	// insert value into return string, converted
 	for(int i = newtam; i >= 0; i--){
-		/// TO-DO: find out how to do it
+		ret[i] = toChar(value % (ll)dest);
+		value /= (ll)dest;
 	}
 	
 	return strdup(ret);
