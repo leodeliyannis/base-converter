@@ -58,17 +58,6 @@ ll binpow(ll a, ll n){
 	return a * aux;
 }
 
-// Just so GCC stops bothering me with that stupid 
-// "warning: implicit declaration of function ‘strdup’" message
-char *strdup(const char *str){
-    int n = strlen(str) + 1;
-    char *dup = (char*) malloc(n);
-    if(dup){
-        strcpy(dup, str);
-    }
-    return dup;
-}
-
 int valueOf(char c){
 	if('0' <= c && c <= '9'){
 		return c - '0';
@@ -96,7 +85,7 @@ int toChar(int c){
 
 // convert a number from orig base to dest base
 char *baseConversion(char *number, int orig, int dest){
-	char *ret;
+	char *ret = NULL;
 	ll value = 0;
 	int tam = strlen(number) - 1;
 	int newtam;
@@ -116,7 +105,7 @@ char *baseConversion(char *number, int orig, int dest){
 	}
 	ret[newtam] = '\0';
 	
-	return strdup(ret);
+	return ret;
 }
 
 // Driver program to test above functions.
@@ -130,7 +119,6 @@ int main(void){
 	while(scanf("%s %d %d", number, &orig, &dest) != EOF){
 		converted = baseConversion(number, orig, dest);
 		printf("%s\n", converted);
-		// is free() needed?
 		free(converted);
 	}
 	
